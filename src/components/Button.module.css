@@ -1,0 +1,192 @@
+/**
+ * Botões — microinteração e hierarquia.
+ * Hover/press animam apenas `transform`, `opacity` e cor (nunca box-shadow).
+ */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem; /* 48px — alvo de toque confortável */
+  padding: 0.78rem 1.35rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  line-height: 1.15;
+  letter-spacing: 0.004em;
+  text-align: center;
+  cursor: pointer;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    transform var(--d-fast) var(--e-out),
+    background-color var(--d-fast) var(--e-out),
+    border-color var(--d-fast) var(--e-out),
+    color var(--d-fast) var(--e-out),
+    opacity var(--d-fast) var(--e-out);
+}
+
+.btn__label {
+  position: relative;
+  z-index: 1;
+}
+
+.btn__icon,
+.btn__trailing {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  transition: transform var(--d-fast) var(--e-out);
+}
+
+/* ---------------------------------------------------------------- primário */
+.btn--primary {
+  background-image: var(--grad-primary);
+  color: var(--c-text-on-primary);
+  /* contraste do texto sobre o gradiente: 4.8:1 (topo) → 5.9:1 (base) */
+  box-shadow:
+    0 10px 26px -16px rgba(144, 19, 254, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* glow pré-rasterizado: no hover só muda a opacity (compositor-only) */
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow:
+    0 20px 44px -16px rgba(189, 77, 255, 0.9),
+    inset 0 0 0 1px rgba(212, 173, 255, 0.42);
+  opacity: 0;
+  transition: opacity var(--d-fast) var(--e-out);
+  pointer-events: none;
+}
+
+/* -------------------------------------------------------------- secundário */
+.btn--secondary {
+  background-color: rgba(219, 195, 255, 0.045);
+  border-color: var(--c-border-strong);
+  color: var(--c-text);
+}
+
+.btn--secondary::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: 0 16px 36px -20px rgba(3, 2, 8, 0.95);
+  opacity: 0;
+  transition: opacity var(--d-fast) var(--e-out);
+  pointer-events: none;
+}
+
+/* -------------------------------------------------------------------- ghost */
+.btn--ghost {
+  background-color: transparent;
+  color: var(--c-accent);
+  padding-inline: 0.5rem;
+  min-height: 2.75rem;
+}
+
+.btn--quiet {
+  background-color: transparent;
+  border-color: var(--c-border);
+  color: var(--c-text-muted);
+  min-height: 2.75rem;
+  font-size: var(--fs-micro);
+}
+
+/* ------------------------------------------------------------------ tamanhos */
+.btn--lg {
+  min-height: 3.5rem;
+  padding: 1rem 1.75rem;
+  font-size: 1rem;
+  border-radius: var(--r-md);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ------------------------------------------------------------------ estados */
+/* Apenas onde hover existe de verdade: mouse/trackpad. */
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn--primary:hover::after {
+    opacity: 1;
+  }
+
+  .btn--primary:hover .btn__trailing {
+    transform: translate(3px, -3px);
+  }
+
+  .btn--secondary:hover {
+    transform: translateY(-2px);
+    background-color: rgba(219, 195, 255, 0.09);
+    border-color: rgba(212, 173, 255, 0.42);
+    color: var(--c-text);
+  }
+
+  .btn--secondary:hover::after {
+    opacity: 1;
+  }
+
+  .btn--secondary:hover .btn__trailing {
+    transform: translateX(3px);
+  }
+
+  .btn--ghost:hover {
+    color: var(--c-text);
+    background-color: rgba(219, 195, 255, 0.06);
+  }
+
+  .btn--quiet:hover {
+    color: var(--c-text);
+    border-color: var(--c-border-strong);
+    background-color: rgba(219, 195, 255, 0.05);
+  }
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.986);
+  transition-duration: var(--d-instant);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+}
+
+/* movimento reduzido: mantém cor/foco (Tier 3), remove deslocamento (Tier 1) */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn__icon,
+  .btn__trailing {
+    transition:
+      background-color var(--d-fast) var(--e-out),
+      border-color var(--d-fast) var(--e-out),
+      color var(--d-fast) var(--e-out);
+  }
+
+  .btn:hover,
+  .btn:active,
+  .btn__trailing:hover {
+    transform: none;
+  }
+}

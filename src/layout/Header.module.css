@@ -1,0 +1,349 @@
+/**
+ * Header — sticky, legível e barato de renderizar.
+ * Uma única superfície com `backdrop-filter` em todo o site (e só no desktop).
+ */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  padding-top: var(--safe-top);
+  background-color: rgba(8, 7, 12, 0);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--d-base) var(--e-out-soft),
+    border-color var(--d-base) var(--e-out-soft);
+}
+
+.headerScrolled {
+  background-color: rgba(10, 8, 16, 0.94);
+  border-bottom-color: var(--c-border);
+}
+
+/* Blur leve só onde há folga de performance e hover real (desktop). */
+@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
+  .headerScrolled {
+    background-color: rgba(10, 8, 16, 0.76);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+  }
+}
+
+/* Fallback opaco quando transparência/blur não é suportado ou não é desejado. */
+@supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+  .headerScrolled {
+    background-color: rgba(8, 7, 12, 0.98);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .headerScrolled {
+    background-color: #0a0810;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-sm);
+  height: var(--header-h);
+}
+
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-right: auto;
+  border-radius: var(--r-sm);
+}
+
+/* ------------------------------------------------------------- nav desktop */
+.nav {
+  display: none;
+}
+
+@media (min-width: 60rem) {
+  .nav {
+    display: block;
+  }
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.1rem, 0.6vw, 0.6rem);
+}
+
+.navLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--r-sm);
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--c-text-muted);
+  transition: color var(--d-fast) var(--e-out);
+}
+
+.navMarker {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.42rem;
+  height: 1px;
+  background: var(--grad-metal);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--d-base) var(--e-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navLink:hover {
+    color: var(--c-text);
+  }
+
+  .navLink:hover .navMarker {
+    transform: scaleX(1);
+  }
+}
+
+.navLinkActive {
+  color: var(--c-text);
+}
+
+.navLinkActive .navMarker {
+  transform: scaleX(1);
+}
+
+/* ----------------------------------------------------------------- ações */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.headerCta {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .headerCta {
+    display: inline-flex;
+  }
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  background-color: rgba(219, 195, 255, 0.04);
+  color: var(--c-text);
+  transition:
+    background-color var(--d-fast) var(--e-out),
+    border-color var(--d-fast) var(--e-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .toggle:hover {
+    background-color: rgba(219, 195, 255, 0.1);
+    border-color: var(--c-border-strong);
+  }
+}
+
+@media (min-width: 60rem) {
+  .toggle {
+    display: none;
+  }
+}
+
+/* hambúrguer → X, só com transform/opacity */
+.burger {
+  position: relative;
+  display: block;
+  width: 1.25rem;
+  height: 0.78rem;
+}
+
+.burger i {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background-color: currentColor;
+  transition:
+    transform 220ms var(--e-out),
+    opacity 140ms linear,
+    width 220ms var(--e-out);
+}
+
+.burger i:nth-child(1) {
+  top: 0;
+}
+
+.burger i:nth-child(2) {
+  top: 0.36rem;
+  width: 68%;
+}
+
+.burger i:nth-child(3) {
+  top: 0.72rem;
+}
+
+.toggle[data-open='true'] .burger i:nth-child(1) {
+  transform: translateY(0.36rem) rotate(45deg);
+}
+
+.toggle[data-open='true'] .burger i:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-0.4rem);
+}
+
+.toggle[data-open='true'] .burger i:nth-child(3) {
+  transform: translateY(-0.36rem) rotate(-45deg);
+}
+
+/* ---------------------------------------------------------- painel mobile */
+.panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 0 var(--gutter) var(--s-md);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  transition:
+    opacity var(--d-base) var(--e-out),
+    transform var(--d-base) var(--e-out),
+    visibility 0s linear var(--d-base);
+}
+
+.panel[data-open='true'] {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--d-base) var(--e-out),
+    transform var(--d-base) var(--e-out),
+    visibility 0s;
+}
+
+@media (min-width: 60rem) {
+  .panel {
+    display: none;
+  }
+}
+
+.panel > nav,
+.panelFoot {
+  background-color: var(--c-surface);
+}
+
+.panel > nav {
+  border: 1px solid var(--c-border);
+  border-bottom: 0;
+  border-radius: var(--r-md) var(--r-md) 0 0;
+  padding: 0.35rem var(--s-md);
+  max-height: min(52svh, 22rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.panelFoot {
+  border: 1px solid var(--c-border);
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  padding: var(--s-md);
+  padding-bottom: calc(var(--s-md) + var(--safe-bottom));
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  gap: var(--s-md);
+}
+
+.panelList {
+  display: grid;
+}
+
+.panelLink {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 3.25rem;
+  padding: 0.4rem 0.25rem;
+  border-bottom: 1px solid var(--c-border-faint);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+}
+
+.panelList li:last-child .panelLink {
+  border-bottom: 0;
+}
+
+.panelIndex {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--c-text-dim);
+}
+
+.panelContacts {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.panelContact {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.75rem;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  border-radius: var(--r-xs);
+}
+
+.panelContactValue {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--c-text-dim);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .panelLink:hover,
+  .panelContact:hover {
+    color: var(--c-accent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transform: none;
+    transition:
+      opacity var(--d-fast) linear,
+      visibility 0s linear var(--d-fast);
+  }
+
+  .panel[data-open='true'] {
+    transform: none;
+    transition:
+      opacity var(--d-fast) linear,
+      visibility 0s;
+  }
+
+  .burger i {
+    transition: none;
+  }
+}

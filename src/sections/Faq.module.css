@@ -1,0 +1,111 @@
+.list {
+  display: grid;
+  border-top: 1px solid var(--c-border-faint);
+}
+
+.item {
+  border-bottom: 1px solid var(--c-border-faint);
+}
+
+.heading {
+  margin: 0;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-md);
+  width: 100%;
+  min-height: 4rem;
+  padding: var(--s-sm) 0.25rem;
+  text-align: left;
+  color: var(--c-text);
+  transition: color var(--d-fast) var(--e-out);
+}
+
+.question {
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 0.96rem + 0.3vw, 1.18rem);
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-xs);
+  color: var(--c-accent);
+  transition:
+    transform var(--d-base) var(--e-out),
+    border-color var(--d-base) var(--e-out),
+    background-color var(--d-base) var(--e-out);
+}
+
+.itemOpen .icon {
+  transform: rotate(45deg);
+  border-color: rgba(212, 173, 255, 0.42);
+  background-color: rgba(144, 19, 254, 0.16);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .trigger:hover {
+    color: var(--c-accent);
+  }
+
+  .trigger:hover .icon {
+    border-color: rgba(212, 173, 255, 0.42);
+  }
+}
+
+/* ------------------------------------------------------------- painel */
+.panelWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--d-base) var(--e-out);
+}
+
+.panelWrap[data-open='true'] {
+  grid-template-rows: 1fr;
+}
+
+.panelInner {
+  overflow: hidden;
+  min-height: 0;
+  visibility: hidden;
+  transition: visibility 0s linear var(--d-base);
+}
+
+.panelWrap[data-open='true'] .panelInner {
+  visibility: visible;
+  transition: visibility 0s;
+}
+
+.answer {
+  padding: 0 3rem var(--s-md) 0.25rem;
+  font-size: var(--fs-small);
+  line-height: 1.68;
+  color: var(--c-text-muted);
+  max-width: 68ch;
+}
+
+@media (max-width: 33.9rem) {
+  .answer {
+    padding-right: 0.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon {
+    transition: none;
+  }
+
+  .itemOpen .icon {
+    transform: none;
+  }
+}

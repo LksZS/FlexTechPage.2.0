@@ -1,0 +1,155 @@
+.grid {
+  display: grid;
+  gap: var(--s-md);
+}
+
+@media (min-width: 48rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.card {
+  display: grid;
+  gap: var(--s-sm);
+  align-content: start;
+  padding: clamp(1.4rem, 2.6vw, 2rem);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  background: linear-gradient(168deg, rgba(26, 23, 36, 0.7), rgba(17, 16, 24, 0.9) 68%);
+  transition:
+    transform var(--d-base) var(--e-out),
+    border-color var(--d-base) var(--e-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--c-border-strong);
+  }
+}
+
+/* monograma tipográfico — composição, não fotografia */
+.monogram {
+  display: grid;
+  place-items: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  border: 1px solid rgba(212, 173, 255, 0.34);
+  border-radius: var(--r-sm);
+  background:
+    linear-gradient(150deg, rgba(144, 19, 254, 0.22), rgba(17, 16, 24, 0.4) 70%) padding-box,
+    var(--grad-metal) border-box;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.02em;
+  color: var(--c-text);
+}
+
+.brandMark {
+  width: 4.25rem;
+  height: 4.25rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.012em;
+  color: var(--c-text);
+}
+
+.cardText {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--c-text-muted);
+}
+
+.links {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: var(--s-2xs);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 2.85rem;
+  padding-inline: 0.35rem;
+  border-radius: var(--r-xs);
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  transition:
+    color var(--d-fast) var(--e-out),
+    background-color var(--d-fast) var(--e-out);
+}
+
+.link > span:first-of-type {
+  color: var(--c-text);
+}
+
+.linkValue {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--c-text-dim);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--c-accent);
+    background-color: rgba(219, 195, 255, 0.06);
+  }
+}
+
+/* ------------------------------------------------------------ princípios */
+.principles {
+  display: grid;
+  gap: var(--s-sm);
+  margin-top: var(--s-xl);
+  padding-top: var(--s-lg);
+  border-top: 1px solid var(--c-border-faint);
+}
+
+@media (min-width: 48rem) {
+  .principles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-lg);
+  }
+}
+
+.principles li {
+  position: relative;
+  padding-left: 1.15rem;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--c-text-muted);
+}
+
+.principles li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(140deg, var(--c-primary-bright), var(--c-primary));
+  transform: rotate(45deg);
+}
+
+.principles strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  color: var(--c-text);
+}

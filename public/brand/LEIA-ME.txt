@@ -1,0 +1,14 @@
+Pasta destinada ao logotipo OFICIAL da FlexTech.
+
+O arquivo original (https://media.base44.com/images/public/6a35b65957bed06fa9acbffd/73f9dc3ec_Logo.png)
+nao pode ser baixado no ambiente em que este redesign foi construido (host de
+midia bloqueado). Por isso o site renderiza, por padrao, um monograma geometrico
+autoral como placeholder - o simbolo oficial NAO foi redesenhado.
+
+Para ativar o logotipo oficial:
+  1. salve o arquivo aqui como  public/brand/logo.png  (idealmente tambem um SVG);
+  2. em src/config/site.ts, troque  brand.officialLogoSrc  para '/brand/logo.png';
+  3. ajuste brand.officialLogoWidth / officialLogoHeight para a proporcao real
+     (evita CLS, ja que o <img> recebe width/height explicitos).
+
+Nenhuma outra alteracao de codigo e necessaria.

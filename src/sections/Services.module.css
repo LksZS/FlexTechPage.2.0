@@ -1,0 +1,180 @@
+.asideNote {
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  max-width: 34ch;
+}
+
+.asideLink {
+  color: var(--c-accent);
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 173, 255, 0.4);
+  text-underline-offset: 3px;
+  transition: color var(--d-fast) var(--e-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .asideLink:hover {
+    color: var(--c-text);
+  }
+}
+
+/* ------------------------------------------------------------------- grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--s-md);
+}
+
+.card {
+  grid-column: span 12;
+  position: relative;
+  display: grid;
+  gap: var(--s-xs);
+  align-content: start;
+  padding: clamp(1.25rem, 2.4vw, 2rem);
+  background: linear-gradient(168deg, rgba(26, 23, 36, 0.72), rgba(17, 16, 24, 0.9) 66%);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  transition:
+    transform var(--d-base) var(--e-out),
+    border-color var(--d-base) var(--e-out);
+}
+
+/* luz de topo pré-rasterizada: só a opacity muda no hover */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--grad-metal);
+  opacity: 0.35;
+  transition: opacity var(--d-base) var(--e-out);
+}
+
+.cardFeatured {
+  /* superfície "especial": plano angular com costura metálica no chanfro */
+  --n: var(--notch-sm);
+  border-radius: 0;
+  background:
+    linear-gradient(168deg, rgba(26, 23, 36, 0.86), rgba(15, 14, 22, 0.94) 66%) padding-box,
+    var(--grad-metal) border-box;
+  border: 1px solid transparent;
+  clip-path: polygon(
+    var(--n) 0,
+    100% 0,
+    100% calc(100% - var(--n)),
+    calc(100% - var(--n)) 100%,
+    0 100%,
+    0 var(--n)
+  );
+}
+
+@media (min-width: 48rem) {
+  .card {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 64rem) {
+  .card:nth-child(1) {
+    grid-column: span 7;
+  }
+
+  .card:nth-child(2) {
+    grid-column: span 5;
+  }
+
+  .card:nth-child(3) {
+    grid-column: span 5;
+  }
+
+  .card:nth-child(4) {
+    grid-column: span 7;
+  }
+
+  .card:nth-child(5),
+  .card:nth-child(6) {
+    grid-column: span 6;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--c-border-strong);
+  }
+
+  .card:hover::before {
+    opacity: 0.9;
+  }
+
+  .card:hover .cardIcon {
+    color: var(--c-accent);
+  }
+}
+
+/* -------------------------------------------------------------- conteúdo */
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-sm);
+  margin-bottom: var(--s-xs);
+}
+
+.cardIndex {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.2em;
+  color: var(--c-text-dim);
+}
+
+.cardIcon {
+  color: var(--c-text-muted);
+  transition: color var(--d-base) var(--e-out);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.012em;
+  color: var(--c-text);
+}
+
+.cardText {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--c-text-muted);
+  max-width: 46ch;
+}
+
+.cardVisual {
+  margin-block: var(--s-xs);
+  max-width: 26rem;
+  border-radius: var(--r-sm);
+}
+
+.cardList {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: var(--s-2xs);
+}
+
+.cardItem {
+  display: grid;
+  grid-template-columns: 0.7rem 1fr;
+  gap: 0.65rem;
+  align-items: start;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--c-text-muted);
+}
+
+.bullet {
+  width: 6px;
+  height: 6px;
+  margin-top: 0.5rem;
+  background: linear-gradient(140deg, var(--c-primary-bright), var(--c-primary));
+  transform: rotate(45deg);
+}

@@ -1,0 +1,170 @@
+.shell {
+  display: grid;
+  gap: var(--s-xl);
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@media (min-width: 64rem) {
+  .shell {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  /* sticky ≠ pin: o título acompanha sem travar a rolagem */
+  .side {
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-lg));
+  }
+
+  .heading {
+    margin-bottom: 0;
+  }
+}
+
+/* ---------------------------------------------------------------- etapas */
+.steps {
+  position: relative;
+  display: grid;
+  gap: var(--s-lg);
+  counter-reset: step;
+}
+
+.line {
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 1.35rem;
+  width: 1px;
+  background-color: var(--c-border);
+}
+
+.lineFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: top center;
+  background: linear-gradient(180deg, var(--c-primary-bright), var(--c-primary) 70%, rgba(144, 19, 254, 0.2));
+}
+
+/* com movimento reduzido a linha já nasce completa */
+@media (prefers-reduced-motion: reduce) {
+  .lineFill {
+    transform: none !important;
+  }
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.75rem 1fr;
+  gap: var(--s-md);
+  padding-left: 0;
+}
+
+.node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--r-sm);
+  background: linear-gradient(160deg, var(--c-surface-raised), var(--c-surface));
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--c-text-dim);
+  transition:
+    color var(--d-base) var(--e-out),
+    border-color var(--d-base) var(--e-out),
+    transform var(--d-base) var(--e-out);
+}
+
+.step[data-active='true'] .node {
+  color: var(--c-text);
+  border-color: rgba(212, 173, 255, 0.5);
+  transform: rotate(45deg);
+}
+
+.step[data-active='true'] .nodeIndex {
+  transform: rotate(-45deg);
+}
+
+.nodeIndex {
+  transition: transform var(--d-base) var(--e-out);
+}
+
+.stepBody {
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+  padding-bottom: var(--s-sm);
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.012em;
+  color: var(--c-text);
+}
+
+.stepText {
+  font-size: var(--fs-small);
+  line-height: 1.62;
+  color: var(--c-text-muted);
+  max-width: 52ch;
+}
+
+.stepMeta {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+}
+
+.metaRow {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.45rem 0.7rem;
+  border-left: 2px solid rgba(144, 19, 254, 0.4);
+  background-color: rgba(246, 243, 255, 0.022);
+  border-radius: 0 var(--r-xs) var(--r-xs) 0;
+}
+
+.metaRow dt {
+  font-family: var(--font-display);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.metaRow dd {
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--c-text-muted);
+}
+
+@media (max-width: 33.9rem) {
+  .metaRow {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step[data-active='true'] .node {
+    transform: none;
+  }
+
+  .step[data-active='true'] .nodeIndex {
+    transform: none;
+  }
+}
