@@ -1,0 +1,79 @@
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-mobilebar);
+  padding: 0.55rem var(--gutter) calc(0.55rem + var(--safe-bottom));
+  background-color: rgba(8, 7, 12, 0.92);
+  border-top: 1px solid var(--c-border);
+  transform: translateY(110%);
+  transition: transform var(--d-base) var(--e-out);
+}
+
+@supports ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+  @media (hover: none) and (pointer: coarse) {
+    .bar {
+      background-color: rgba(8, 7, 12, 0.78);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
+    }
+  }
+}
+
+.barVisible {
+  transform: translateY(0);
+}
+
+.inner {
+  display: grid;
+  gap: 0.2rem;
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.9rem;
+  border-radius: var(--r-sm);
+  background-image: var(--grad-primary);
+  color: var(--c-text-on-primary);
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  box-shadow: 0 10px 24px -14px rgba(144, 19, 254, 0.9);
+}
+
+.button:active {
+  transform: scale(0.985);
+}
+
+.hint {
+  text-align: center;
+  font-size: 0.6875rem;
+  color: var(--c-text-dim);
+}
+
+/* Só existe no mobile: no desktop o header já resolve o CTA. */
+@media (min-width: 48rem) {
+  .bar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition: opacity var(--d-fast) linear;
+    transform: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .barVisible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

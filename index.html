@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover habilita as safe areas do iPhone (notch/home indicator) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#08070c" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <title>FlexTech — Soluções digitais, possibilidades sem limites</title>
+    <meta
+      name="description"
+      content="A FlexTech cria sites, aplicações web e mobile, dashboards de BI, soluções em Power Platform, UX/UI e automações que conectam sua empresa ao próximo passo."
+    />
+    <!-- Trocar pelo domínio real em produção (ver src/config/site.ts → siteUrl). -->
+    <link rel="canonical" href="https://flextech.example.com/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Fontes locais descobertas antes do CSS: texto do LCP não espera a fonte -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/space-grotesk-latin-wght-normal.woff2"
+      crossorigin
+    />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-wght-normal.woff2" crossorigin />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FlexTech" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="https://flextech.example.com/" />
+    <meta property="og:title" content="FlexTech — Soluções digitais, possibilidades sem limites" />
+    <meta
+      property="og:description"
+      content="Sites, aplicações, BI, Power Platform, UX/UI e automações sob medida — do primeiro insight à evolução contínua."
+    />
+    <meta property="og:image" content="https://flextech.example.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="FlexTech: planos angulares em grafite e violeta com o nome da empresa." />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FlexTech — Soluções digitais, possibilidades sem limites" />
+    <meta
+      name="twitter:description"
+      content="Sites, aplicações, BI, Power Platform, UX/UI e automações sob medida."
+    />
+    <meta name="twitter:image" content="https://flextech.example.com/og.png" />
+
+    <!--
+      Dados estruturados: apenas informações reais e públicas.
+      Sem CNPJ, endereço, e-mail ou preços (não informados → não inventados).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "FlexTech",
+        "description": "Desenvolvimento de sites, aplicações web e mobile, business intelligence, Power Platform, UX/UI e automações.",
+        "url": "https://flextech.example.com/",
+        "logo": "https://flextech.example.com/og.png",
+        "image": "https://flextech.example.com/og.png",
+        "availableLanguage": ["pt-BR"],
+        "sameAs": ["https://www.instagram.com/flextechnolog/"],
+        "knowsAbout": [
+          "Desenvolvimento web",
+          "Aplicações mobile",
+          "Business Intelligence",
+          "Power Apps",
+          "Power Automate",
+          "UX/UI Design",
+          "Automações e integrações"
+        ],
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "name": "Lucas Souza",
+            "telephone": "+55-11-97585-4678",
+            "contactType": "customer support",
+            "availableLanguage": ["pt-BR"]
+          },
+          {
+            "@type": "ContactPoint",
+            "name": "Igor Gabriel",
+            "telephone": "+55-11-97833-0904",
+            "contactType": "customer support",
+            "availableLanguage": ["pt-BR"]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

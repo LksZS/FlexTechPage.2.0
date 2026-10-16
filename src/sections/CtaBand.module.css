@@ -1,0 +1,80 @@
+.wrap {
+  margin-top: var(--section-y);
+  padding-inline: var(--gutter);
+}
+
+.band {
+  --n: var(--notch);
+  position: relative;
+  display: grid;
+  gap: var(--s-lg);
+  max-width: var(--container);
+  margin-inline: auto;
+  padding: clamp(1.75rem, 4vw, 3.5rem);
+  background:
+    linear-gradient(140deg, rgba(30, 25, 44, 0.92) 0%, rgba(17, 16, 24, 0.94) 58%) padding-box,
+    var(--grad-metal) border-box;
+  border: 1px solid transparent;
+  clip-path: polygon(
+    var(--n) 0,
+    100% 0,
+    100% calc(100% - var(--n)),
+    calc(100% - var(--n)) 100%,
+    0 100%,
+    0 var(--n)
+  );
+  overflow: hidden;
+}
+
+/* luz violeta discreta no canto, estática */
+.band::after {
+  content: '';
+  position: absolute;
+  inset: -30% -10% auto auto;
+  width: 26rem;
+  height: 26rem;
+  background: radial-gradient(closest-side, rgba(144, 19, 254, 0.3), transparent 72%);
+  pointer-events: none;
+}
+
+@media (min-width: 60rem) {
+  .band {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    align-items: center;
+    gap: var(--s-2xl);
+  }
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--c-text);
+  max-width: 20ch;
+}
+
+.text {
+  margin-top: var(--s-sm);
+  font-size: var(--fs-lead);
+  line-height: 1.58;
+  color: var(--c-text-muted);
+  max-width: 48ch;
+}
+
+.side {
+  display: grid;
+  gap: var(--s-sm);
+  justify-items: start;
+}
+
+.note {
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+}
+
+.note strong {
+  color: var(--c-text);
+  font-weight: var(--fw-semibold);
+}

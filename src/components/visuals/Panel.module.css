@@ -1,0 +1,51 @@
+/**
+ * Moldura compartilhada dos módulos visuais (hero, serviços, portfólio).
+ * Sem filtros animados: apenas gradientes estáticos, borda e sombra.
+ */
+
+.panel {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-md);
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(246, 243, 255, 0.055);
+  overflow: hidden;
+}
+
+.panelFlat {
+  box-shadow: none;
+  border-color: var(--c-border-faint);
+}
+
+/* elementos que só se movem quando o módulo está visível */
+.loop {
+  animation-play-state: paused;
+}
+
+@keyframes caret-blink {
+  0%,
+  46% {
+    opacity: 1;
+  }
+  50%,
+  96% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.caret {
+  animation: caret-blink 1.5s steps(1, end) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+  }
+}

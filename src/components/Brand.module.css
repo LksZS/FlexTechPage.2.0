@@ -1,0 +1,56 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.62rem;
+  min-width: 0;
+}
+
+.mark {
+  flex: none;
+  width: 2.125rem;
+  height: 2.125rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.025em;
+  line-height: 1;
+  color: var(--c-text);
+  white-space: nowrap;
+}
+
+.brand--sm .mark {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.brand--sm .wordmark {
+  font-size: 1.05rem;
+}
+
+.brand--lg .mark {
+  width: 2.9rem;
+  height: 2.9rem;
+}
+
+.brand--lg .wordmark {
+  font-size: 1.6rem;
+}
+
+.official {
+  height: 2.5rem;
+  width: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* brilho discreto no símbolo, apenas com ponteiro fino (transform/opacity) */
+  .brand:hover .mark {
+    transform: translateY(-1px);
+  }
+
+  .mark {
+    transition: transform var(--d-fast) var(--e-out);
+  }
+}

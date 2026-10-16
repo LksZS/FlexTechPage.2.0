@@ -1,0 +1,21 @@
+.mask {
+  display: block;
+  overflow: hidden;
+  /* O padding extra mantém acentos e descendentes visíveis; a margem negativa
+     devolve o ritmo tipográfico original. O mask continua escondendo o conteúdo
+     que vem de baixo (yPercent 112). */
+  padding-block: 0.045em 0.17em;
+  margin-block: -0.045em -0.17em;
+}
+
+.inner {
+  display: block;
+  will-change: transform;
+}
+
+/* Sem promoção de camada quando não há movimento */
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    will-change: auto;
+  }
+}

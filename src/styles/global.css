@@ -1,0 +1,369 @@
+/**
+ * FlexTech — estilos globais
+ * ---------------------------------------------------------------------------
+ * Reset, base tipográfica, primitivas de layout e utilitários compartilhados.
+ *
+ * Regra de ouro deste arquivo: **tudo é visível por padrão**. Nenhuma classe
+ * global esconde conteúdo esperando JavaScript — se o GSAP falhar, a página
+ * continua legível e navegável (requisito de acessibilidade do projeto).
+ */
+
+@import './fonts.css';
+
+/* ------------------------------------------------------------------- reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* âncoras compensam o header sticky */
+  scroll-padding-top: calc(var(--header-h) + 1.25rem);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  min-height: 100svh;
+  background-color: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  /* luz violeta controlada + profundidade: camadas estáticas, sem filtro animado */
+  background-image:
+    radial-gradient(72rem 46rem at 82% -8%, rgba(144, 19, 254, 0.16), transparent 62%),
+    radial-gradient(58rem 40rem at 4% 22%, rgba(88, 24, 148, 0.12), transparent 66%),
+    linear-gradient(180deg, #0a0812 0%, var(--c-bg) 34%, var(--c-bg-deep) 100%);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+
+/* textura de grão finíssima (SVG inline, sem request extra) — quebra o
+   banding dos gradientes grandes sem custar paint relevante */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* iOS: fonte ≥16px evita zoom automático ao focar */
+input,
+textarea,
+select {
+  font-size: 1rem;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-heading);
+  text-wrap: balance;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ------------------------------------------------------------------- foco */
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+  border-radius: var(--r-xs);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::selection {
+  background: rgba(189, 77, 255, 0.32);
+  color: var(--c-text);
+}
+
+/* -------------------------------------------------------------- utilidades */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: calc(0.5rem + var(--safe-top));
+  left: calc(0.5rem + var(--safe-left));
+  z-index: var(--z-skip);
+  padding: 0.75rem 1.15rem;
+  background: var(--c-accent);
+  color: #16082b;
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-small);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-160%);
+  transition: transform var(--d-fast) var(--e-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-offset: 3px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  position: relative;
+  z-index: 1;
+}
+
+.container--narrow {
+  max-width: 62rem;
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+  scroll-margin-top: var(--header-h);
+}
+
+.section--flush-top {
+  padding-top: calc(var(--section-y) * 0.62);
+}
+
+/* ------------------------------------------------- cabeçalhos de seção */
+.section-head {
+  display: grid;
+  gap: var(--s-md);
+  max-width: var(--measure);
+}
+
+.section-head--split {
+  max-width: none;
+  grid-template-columns: 1fr;
+  align-items: end;
+  gap: var(--s-lg);
+}
+
+@media (min-width: 60rem) {
+  .section-head--split {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: var(--s-2xl);
+  }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 1.6rem;
+  height: 1px;
+  background: var(--grad-metal);
+  flex: none;
+}
+
+.eyebrow--plain::before {
+  display: none;
+}
+
+.section-index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.18em;
+  color: var(--c-text-dim);
+}
+
+.h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  font-weight: var(--fw-semibold);
+}
+
+.h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.58;
+  color: var(--c-text-muted);
+}
+
+.muted {
+  color: var(--c-text-muted);
+}
+
+.dim {
+  color: var(--c-text-dim);
+}
+
+.accent {
+  color: var(--c-accent);
+}
+
+/* --------------------------------------------------------- hairline/régua */
+.hairline {
+  height: 1px;
+  border: 0;
+  background: var(--grad-metal);
+  opacity: 0.5;
+}
+
+.rule-v {
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--c-border-strong) 22%, var(--c-border-strong) 78%, transparent);
+}
+
+/* ------------------------------------------------------- painel chanfrado */
+/* Assinatura visual: plano angular com costura metálica no chanfro.
+   O gradiente fica em border-box e o recorte em clip-path revela a borda
+   diagonal como "edge light". */
+.notched {
+  --n: var(--notch);
+  position: relative;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--c-surface), var(--c-surface)) padding-box,
+    var(--grad-metal) border-box;
+  clip-path: polygon(
+    var(--n) 0,
+    100% 0,
+    100% calc(100% - var(--n)),
+    calc(100% - var(--n)) 100%,
+    0 100%,
+    0 var(--n)
+  );
+}
+
+.notched--raised {
+  background:
+    linear-gradient(var(--c-surface-raised), var(--c-surface-raised)) padding-box,
+    var(--grad-metal) border-box;
+}
+
+/* ------------------------------------------------------- redução de movimento */
+/* Rede de segurança global (backstop). Os ajustes intencionais e em camadas
+   vivem em cada módulo: movimento essencial (fade, foco, cor) é preservado. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reserva espaço para a barra fixa de CTA no mobile: nada fica encoberto. */
+@media (max-width: 47.9rem) {
+  body {
+    padding-bottom: calc(var(--mobilebar-h) + var(--safe-bottom) + 0.75rem);
+  }
+}
+
+/* Sem barra de rolagem horizontal acidental */
+#root {
+  position: relative;
+  z-index: 1;
+  overflow-x: clip;
+  isolation: isolate;
+}
+
+/* Scroll lock para menu/diálogo (aplicado via JS no <html>).
+   A compensação de largura da scrollbar é feita em lib/scroll.ts para não
+   deslocar o layout (CLS) ao travar. */
+html.scroll-locked {
+  overflow: hidden;
+}
+
+html.scroll-locked body {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --c-border: rgba(219, 195, 255, 0.2);
+  }
+}

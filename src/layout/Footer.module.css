@@ -1,0 +1,161 @@
+.footer {
+  position: relative;
+  padding-top: var(--s-2xl);
+  padding-bottom: calc(var(--s-xl) + var(--safe-bottom));
+  border-top: 1px solid var(--c-border);
+  background: linear-gradient(180deg, rgba(13, 12, 20, 0.6), rgba(5, 4, 9, 0.9));
+}
+
+.grid {
+  display: grid;
+  gap: var(--s-xl);
+}
+
+@media (min-width: 48rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr) minmax(0, 0.9fr) minmax(0, 0.9fr);
+    gap: var(--s-lg);
+  }
+}
+
+.brandCol {
+  display: grid;
+  gap: var(--s-sm);
+  align-content: start;
+  max-width: 26rem;
+}
+
+.brandLink {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: var(--r-sm);
+}
+
+.summary {
+  font-size: var(--fs-small);
+  line-height: 1.62;
+  color: var(--c-text-muted);
+}
+
+.social {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  min-height: 2.6rem;
+  padding-inline: 0.7rem;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  transition:
+    color var(--d-fast) var(--e-out),
+    border-color var(--d-fast) var(--e-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .social:hover {
+    color: var(--c-accent);
+    border-color: rgba(212, 173, 255, 0.42);
+  }
+}
+
+.col {
+  display: grid;
+  gap: var(--s-sm);
+  align-content: start;
+}
+
+.colTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+.list {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.5rem;
+  width: fit-content;
+  font-size: var(--fs-small);
+  color: var(--c-text-muted);
+  border-radius: var(--r-xs);
+  transition: color var(--d-fast) var(--e-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--c-accent);
+  }
+}
+
+/* ------------------------------------------------------------- rodapé fino */
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-sm);
+  margin-top: var(--s-2xl);
+  padding-top: var(--s-md);
+  border-top: 1px solid var(--c-border-faint);
+}
+
+.copy {
+  font-size: var(--fs-micro);
+  color: var(--c-text-dim);
+}
+
+.privacy {
+  min-height: 2.5rem;
+  padding-inline: 0.4rem;
+  font-size: var(--fs-micro);
+  color: var(--c-text-dim);
+  text-decoration: underline;
+  text-decoration-color: rgba(219, 195, 255, 0.3);
+  text-underline-offset: 3px;
+  border-radius: var(--r-xs);
+  transition: color var(--d-fast) var(--e-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .privacy:hover {
+    color: var(--c-accent);
+  }
+}
+
+/* --------------------------------------------------------------- privacidade */
+.privacyTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.015em;
+  color: var(--c-text);
+}
+
+.privacyBody {
+  display: grid;
+  gap: var(--s-sm);
+  margin-top: var(--s-md);
+}
+
+.privacyBody p {
+  font-size: var(--fs-small);
+  line-height: 1.66;
+  color: var(--c-text-muted);
+}

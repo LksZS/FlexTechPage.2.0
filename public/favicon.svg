@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <rect width="48" height="48" rx="10" fill="#08070c" />
+  <defs>
+    <linearGradient id="m" x1="6" y1="10" x2="42" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#efe8ff" />
+      <stop offset=".52" stop-color="#b7a8d4" />
+      <stop offset="1" stop-color="#6f6683" />
+    </linearGradient>
+    <linearGradient id="v" x1="6" y1="20" x2="42" y2="30" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#bd4dff" />
+      <stop offset="1" stop-color="#7d10e8" />
+    </linearGradient>
+    <linearGradient id="g" x1="6" y1="30" x2="42" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2b2438" />
+      <stop offset="1" stop-color="#15121f" />
+    </linearGradient>
+  </defs>
+  <path d="M6 34V14M42 32V12" stroke="rgba(219,195,255,.3)" stroke-width="1" />
+  <polygon points="6,34 34,28 42,32 14,38" fill="url(#g)" stroke="rgba(219,195,255,.22)" stroke-width=".9" />
+  <polygon points="6,24 34,18 42,22 14,28" fill="url(#v)" stroke="rgba(246,243,255,.34)" stroke-width=".9" />
+  <polygon points="6,14 34,8 42,12 14,20" fill="url(#m)" stroke="rgba(246,243,255,.5)" stroke-width=".9" />
+  <circle cx="42" cy="12" r="1.6" fill="#d4adff" />
+</svg>
